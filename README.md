@@ -180,7 +180,7 @@ When it comes to the variable qualifiers [introduced with ARC](https://developer
 
 ## Naming
 
-Apple naming conventions should be adhered to wherever possible, especially those related to [memory management rules](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html) ([NARC](http://stackoverflow.com/a/2865194/340508)).
+Apple naming conventions should be adhered to wherever possible.
 
 Long, descriptive method and variable names are good.
 
@@ -196,7 +196,9 @@ UIButton *settingsButton;
 UIButton *setBut;
 ```
 
-A three letter prefix (e.g. `NYT`) should always be used for class names and constants, however may be omitted for Core Data entity names. Constants should be camel-case with all words capitalized and prefixed by the related class name for clarity.
+####Class Prefixes
+
+A two to three letter prefix (e.g. `RM` or `NYT`) should always be used for class names and constants. Constants should be camel-case with all words capitalized. Publicly accessible  constants should be prefixed by the related class name for clarity.
 
 **For example:**
 
@@ -209,6 +211,8 @@ static const NSTimeInterval NYTArticleViewControllerNavigationFadeAnimationDurat
 ```objc
 static const NSTimeInterval fadetime = 1.7;
 ```
+
+####Properties
 
 Properties and local variables should be camel-case with the leading word being lowercase.
 
@@ -230,11 +234,9 @@ id varnm;
 
 When they are needed, comments should be used to explain **why** a particular piece of code does something. Any comments that are used must be kept up-to-date or deleted.
 
-Block comments should generally be avoided, as code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. This does not apply to those comments used to generate documentation.
+Code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. This does not apply to those comments used to generate documentation.
 
-## init and dealloc
-
-`dealloc` methods should be placed at the top of the implementation, directly after the `@synthesize` and `@dynamic` statements. `init` should be placed directly below the `dealloc` methods of any class.
+## init
 
 `init` methods should be structured like this:
 
@@ -271,7 +273,7 @@ NSNumber *shouldUseLiterals = [NSNumber numberWithBool:YES];
 NSNumber *buildingZIPCode = [NSNumber numberWithInteger:10018];
 ```
 
-## CGRect Functions
+## CGRect Functions (TODO : needs feedback)
 
 When accessing the `x`, `y`, `width`, or `height` of a `CGRect`, always use the [`CGGeometry` functions](http://developer.apple.com/library/ios/#documentation/graphicsimaging/reference/CGGeometry/Reference/reference.html) instead of direct struct member access. From Apple's `CGGeometry` reference:
 
@@ -321,7 +323,7 @@ static const CGFloat NYTImageThumbnailHeight = 50.0;
 
 ## Enumerated Types
 
-When using `enum`s, it is recommended to use the new fixed underlying type specification because it has stronger type checking and code completion. The SDK now includes a macro to facilitate and encourage use of fixed underlying types — `NS_ENUM()`
+Enum values should be prefixed with the enum type name. Furthermore, when using `enum`'s, you should use the new fixed underlying type specification because it has stronger type checking and code completion. The SDK now includes a macro to facilitate and encourage use of fixed underlying types — `NS_ENUM()`
 
 **Example:**
 
