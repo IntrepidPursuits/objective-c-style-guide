@@ -69,6 +69,11 @@ if (user.isHappy) {
 * There should be exactly one blank line between methods to aid in visual clarity and organization. Whitespace within methods should separate functionality, but often there should probably be new methods.
 * `@synthesize` and `@dynamic` should each be declared on new lines in the implementation.
 
+## Line Character limits
+
+Lines should be limitted to 120 characters long. It is useful to turn on Xcode's character limit indicator as a guide for when to break lines down.
+
+
 ## Conditionals
 
 Conditional bodies should always use braces even when a conditional body could be written without braces. These errors include adding a second line and expecting it to be part of the if-statement. Another, [even more dangerous defect](http://programmers.stackexchange.com/a/16530) may happen where the line "inside" the if-statement is commented out, and the next line unwittingly becomes part of the if-statement. In addition, this style is more consistent with all other conditionals, and therefore more easily scannable.
@@ -104,6 +109,30 @@ result = a > b ? x : y;
 **Not:**
 ```objc
 result = a > b ? x = c > d ? c : d : y;
+```
+
+## prama mark -
+
+Use pragma marks to organize and break up the various features of your class files. They should also be used to group methods for specific protocols:
+
+**For example:**
+
+```objc
+#pragma mark - UITableViewDataSource methods
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    //do stuff
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //do more stuff
+}
+
+#pragma mark - UITableViewDelegate methods
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    //do even more stuff
+}
 ```
 
 ## Error handling
@@ -148,6 +177,14 @@ More general methods should call more specific ones with default parameters
     ...
 }
 ```
+
+## Property Specifier Ordering
+
+The ordering of the property specifiers should be:
+1. strong / weak / retain / unsafe_unretained / assign / copy
+2. atomicity
+3. writablity
+
 ## Variables
 
 Variables should be named as descriptively as possible. Single letter variable names should be avoided except in `for()` loops.
@@ -187,13 +224,13 @@ Long, descriptive method and variable names are good.
 **For example:**
 
 ```objc
-UIButton *settingsButton;
+UIButton *shareButton;
 ```
 
 **Not**
 
 ```objc
-UIButton *setBut;
+UIButton *shrBttn;
 ```
 
 ####Class Prefixes
@@ -229,6 +266,33 @@ Instance variables should be camel-case with the leading word being lowercase, a
 ```objc
 id varnm;
 ```
+
+####Boolean Properties
+
+Boolean Properties should read as though it has a boolean answer. Furthermore, avoid creating a differently named getter and setter as this adds unnecessary complexity.
+
+**For example:**
+
+```objc
+@property (nonatomic) BOOL hasCompleted;
+@property (nonatomic) BOOL isEditable;
+```
+
+**Not:**
+
+```objc
+@property (nonatomic) BOOL completed;
+@property (nonatomic, getter=isEditable) BOOL editable;
+```
+
+###Categories
+
+Methods defined in categories should be prefix with your project class prefix:
+
+```objc
++ (UIColor *)int_navigationBarColor;
+```
+
 
 ## Comments
 
@@ -273,7 +337,7 @@ NSNumber *shouldUseLiterals = [NSNumber numberWithBool:YES];
 NSNumber *buildingZIPCode = [NSNumber numberWithInteger:10018];
 ```
 
-## CGRect Functions (TODO : needs feedback)
+## CGRect Functions
 
 When accessing the `x`, `y`, `width`, or `height` of a `CGRect`, always use the [`CGGeometry` functions](http://developer.apple.com/library/ios/#documentation/graphicsimaging/reference/CGGeometry/Reference/reference.html) instead of direct struct member access. From Apple's `CGGeometry` reference:
 
@@ -315,7 +379,7 @@ static const CGFloat NYTImageThumbnailHeight = 50.0;
 
 **Not:**
 
-```objc
+```objc 
 #define CompanyName @"The New York Times Company"
 
 #define thumbnailHeight 2
@@ -367,20 +431,33 @@ Private properties should be declared in class extensions (anonymous categories)
 
 ## Image Naming
 
-Image names should be named consistently to preserve organization and developer sanity. They should be named as one camel case string with a description of their purpose, followed by the un-prefixed name of the class or property they are customizing (if there is one), followed by a further description of color and/or placement, and finally their state.
+####Raw image naming conventions
+
+Raw image filenames should:
+* should not contain whitespace characters
+* use the proper scale factors (eg, @2x @3x)
+* have a the general form of location_what_adjectives
+
+`homescreen_arrow_left_selected.png`
+`homescreen_arrow_left_unselected.png`
+
+####Images.xcassets
+
+Image assets should be contained in the Images.xcassets file. Image names within the asset catelog should be named consistently to preserve organization and developer sanity. They should be named as one camel case string with a description of their purpose, followed by the un-prefixed name of the class or property they are customizing (if there is one), followed by a further description of color and/or placement, and finally their state.
 
 **For example:**
 
-* `RefreshBarButtonItem` / `RefreshBarButtonItem@2x` and `RefreshBarButtonItemSelected` / `RefreshBarButtonItemSelected@2x`
-* `ArticleNavigationBarWhite` / `ArticleNavigationBarWhite@2x` and `ArticleNavigationBarBlackSelected` / `ArticleNavigationBarBlackSelected@2x`.
+* `RefreshBarButtonItem` and `RefreshBarButtonItemSelected`
+* `ArticleNavigationBarWhite` and `ArticleNavigationBarBlackSelected`
 
-Images that are used for a similar purpose should be grouped in respective groups in an Images folder.
+####<Prefix>ImageNames file
+
+A constant should be declared for every image in the image asset categlog, with the same name. A script can be used to generate this file for a particular project so that the constants file is ensured to be match the asset catelog. (Ross is going to write this).
+
 
 ## Booleans
 
-Since `nil` resolves to `NO` it is unnecessary to compare it in conditions. Never compare something directly to `YES`, because `YES` is defined to 1 and a `BOOL` can be up to 8 bits.
-
-This allows for more consistency across files and greater visual clarity.
+Since `nil` resolves to `NO` it is unnecessary to compare it in conditions. This allows for more consistency across files and greater visual clarity. (__requires additional research__)
 
 **For example:**
 
@@ -393,6 +470,25 @@ if (!someObject) {
 
 ```objc
 if (someObject == nil) {
+}
+```
+-----
+
+Never implicily cast a non-BOOL expression to a BOOL because a BOOL is a char and if the thing that you are returning is larget than 8 bits, it can truncate to an unexpected value.
+
+**For example:**
+
+```objc
+- (BOOL)hasObjects {
+   return array.count > 0;
+}
+```
+
+**Not:**
+
+```objc
+- (BOOL)hasObjects {
+   return array.count;
 }
 ```
 
@@ -412,14 +508,6 @@ if (isAwesome == YES) // Never do this.
 if ([someObject boolValue] == NO)
 ```
 
------
-
-If the name of a `BOOL` property is expressed as an adjective, the property can omit the “is” prefix but specifies the conventional name for the get accessor, for example:
-
-```objc
-@property (assign, getter=isEditable) BOOL editable;
-```
-Text and example taken from the [Cocoa Naming Guidelines](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingIvarsAndTypes.html#//apple_ref/doc/uid/20001284-BAJGIIJE).
 
 ## Singletons
 
@@ -436,22 +524,35 @@ Singleton objects should use a thread-safe pattern for creating their shared ins
    return sharedInstance;
 }
 ```
+
 This will prevent [possible and sometimes prolific crashes](http://cocoasamurai.blogspot.com/2011/04/singletons-your-doing-them-wrong.html).
+
+## Importing .h files
+
+You should prefer forward declaration for over importing .h files in your .h files to avoid circuluar reference dependency.
 
 ## Xcode project
 
-The physical files should be kept in sync with the Xcode project files in order to avoid file sprawl. Any Xcode groups created should be reflected by folders in the filesystem. Code should be grouped not only by type, but also by feature for greater clarity.
+The physical files should be kept in sync with the Xcode project files in order to avoid file sprawl. Any Xcode groups created should be reflected by folders in the filesystem. Code should be grouped not only by type, but also by feature for greater clarity. Files and groups should also be listed in alphabetical order.
 
-When possible, always turn on "Treat Warnings as Errors" in the target's Build Settings and enable as many [additional warnings](http://boredzo.org/blog/archives/2009-11-07/warnings) as possible. If you need to ignore a specific warning, use [Clang's pragma feature](http://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas).
+### Project Sepcific Styles
 
-# Other Objective-C Style Guides
+Custom colors and fonts for the project should be defined in specific category files, particularly when used in multiple locations.
 
-If ours doesn't fit your tastes, have a look at some other style guides:
+#### UIColor+<Prefix>Colors file
 
-* [Google](http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml)
-* [GitHub](https://github.com/github/objective-c-conventions)
-* [Adium](https://trac.adium.im/wiki/CodingStyle)
-* [Sam Soffes](https://gist.github.com/soffes/812796)
-* [CocoaDevCentral](http://cocoadevcentral.com/articles/000082.php)
-* [Luke Redpath](http://lukeredpath.co.uk/blog/my-objective-c-style-guide.html)
-* [Marcus Zarra](http://www.cimgf.com/zds-code-style-guide/)
+```objc
++ (UIColor *)int_navigationBarBlueColor;
++ (UIColor *)int_submitButtonColor;
+```
+
+#### UIFont+<Prefix>Fonts file
+
+Custom fonts for the project sh
+
+```objc
++ (UIFont *)int_navigationHeaderFontWithSize:(CGFloat)size;
++ (UIFont *)int_navigationHeaderFont;
+```
+
+
