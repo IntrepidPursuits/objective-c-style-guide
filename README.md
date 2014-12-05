@@ -450,7 +450,7 @@ Image assets should be contained in the Images.xcassets file. Image names within
 * `RefreshBarButtonItem` and `RefreshBarButtonItemSelected`
 * `ArticleNavigationBarWhite` and `ArticleNavigationBarBlackSelected`
 
-####<Prefix>ImageNames file
+####[Prefix]ImageNames file
 
 A constant should be declared for every image in the image asset categlog, with the same name. A script can be used to generate this file for a particular project so that the constants file is ensured to be match the asset catelog. (Ross is going to write this).
 
@@ -539,14 +539,14 @@ The physical files should be kept in sync with the Xcode project files in order 
 
 Custom colors and fonts for the project should be defined in specific category files, particularly when used in multiple locations.
 
-#### UIColor+<Prefix>Colors file
+#### UIColor+[Prefix]Colors file
 
 ```objc
 + (UIColor *)int_navigationBarBlueColor;
 + (UIColor *)int_submitButtonColor;
 ```
 
-#### UIFont+<Prefix>Fonts file
+#### UIFont+[Prefix]Fonts file
 
 Custom fonts for the project sh
 
