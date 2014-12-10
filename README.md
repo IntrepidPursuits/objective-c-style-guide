@@ -1,6 +1,10 @@
 # Intrepid Pursuits Objective-C Style Guide
 
-This style guide outlines the coding conventions of the iOS team at Intrepid Pursuits. It started as a fork of the coding convections of the New York Times iOS team (https://github.com/NYTimes/objective-c-style-guide). We welcome your feedback.
+This style guide outlines the coding conventions of the iOS team at Intrepid Pursuits. It started as a fork of the coding convections of the New York Times iOS team (https://github.com/NYTimes/objective-c-style-guide).
+
+#### Making/Requesting Changes
+
+We welcome your feedback. The current maintainers of this style guide are @cprime, @rosslebeau, and @andrewdolce. If you have an issue with any of the existing rules and would like to see something changes, please open an issue or submit a documented PR with the desired change.
 
 
 ## Introduction
