@@ -535,18 +535,18 @@ You should prefer forward declaration for over importing .h files in your .h fil
 
 The physical files should be kept in sync with the Xcode project files in order to avoid file sprawl. Any Xcode groups created should be reflected by folders in the filesystem. Code should be grouped not only by type, but also by feature for greater clarity. Files and groups should also be listed in alphabetical order.
 
-### Project Sepcific Styles
+## Project Sepcific Styles
 
 Custom colors and fonts for the project should be defined in specific category files, particularly when used in multiple locations.
 
-#### UIColor+[Prefix]Colors file
+### UIColor+[Prefix]Colors file
 
 ```objc
 + (UIColor *)int_navigationBarBlueColor;
 + (UIColor *)int_submitButtonColor;
 ```
 
-#### UIFont+[Prefix]Fonts file
+### UIFont+[Prefix]Fonts file
 
 Custom fonts for the project sh
 
