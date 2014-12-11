@@ -55,6 +55,32 @@ view.backgroundColor = [UIColor orangeColor];
 UIApplication.sharedApplication.delegate;
 ```
 
+Dot-notation should **not** be used to call methods.
+
+**For example:**
+```objc
+array.firstObject
+```
+
+**Not:**
+```objc
+[array firstObject]
+```
+
+For Cocoa objects, pay attention to the headers headers from the latest available SDK.
+
+**For example(as of iOS 8):**
+```objc
+array.firstObject
+array.count
+````
+**Not:**
+```objc
+[array firstObject]
+[array count]
+```
+
+
 ## Spacing
 
 * Indent using 4 spaces. Never indent with tabs. Be sure to set this preference in Xcode.
