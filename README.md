@@ -73,13 +73,12 @@ For Cocoa objects, pay attention to the headers headers from the latest availabl
 ```objc
 array.firstObject
 array.count
-````
+```
 **Not:**
 ```objc
 [array firstObject]
 [array count]
 ```
-
 
 ## Spacing
 
