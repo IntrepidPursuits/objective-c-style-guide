@@ -297,22 +297,16 @@ Instance variables should be camel-case with the leading word being lowercase, a
 id varnm;
 ```
 
-####Boolean Properties
-
-Boolean Properties should read as though it has a boolean answer. Furthermore, avoid creating a differently named getter and setter as this adds unnecessary complexity.
+For rules on naming properties we use the standard Apple rules ([Accessor Naming](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingMethods.html#//apple_ref/doc/uid/20001282-1004202-BCIGGFCC)), with one expection. We recommend against changing the default setter/getter method names in order to minimize property declaration/use complexity.
 
 **For example:**
-
 ```objc
-@property (nonatomic) BOOL hasCompleted;
-@property (nonatomic) BOOL isEditable;
+@property (assign, nonatomic) BOOL editable;
 ```
 
 **Not:**
-
 ```objc
-@property (nonatomic) BOOL completed;
-@property (nonatomic, getter=isEditable) BOOL editable;
+@property (assign, nonatomic, getter=isEditable) BOOL editable;
 ```
 
 ###Categories
