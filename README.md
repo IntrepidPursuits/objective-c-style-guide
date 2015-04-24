@@ -311,11 +311,15 @@ For rules on naming properties we use the standard Apple rules ([Accessor Naming
 
 ###Categories
 
-Methods defined in categories should be prefix with your project class prefix:
+When creating categories on classes not owned by you, category methods should be prefixed with your project class prefix in order to avoid method signature collisions with the original class or a another category on the same class (or even a superclass):
 
 ```objc
+@interface UIColor (INTAdditions)
 + (UIColor *)int_navigationBarColor;
+@end
 ```
+
+[Customizing Existing Classes](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/CustomizingExistingClasses/CustomizingExistingClasses.html#//apple_ref/doc/uid/TP40011210-CH6-SW4)
 
 
 ## Comments
