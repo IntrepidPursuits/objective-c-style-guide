@@ -73,13 +73,12 @@ For Cocoa objects, pay attention to the headers headers from the latest availabl
 ```objc
 array.firstObject
 array.count
-````
+```
 **Not:**
 ```objc
 [array firstObject]
 [array count]
 ```
-
 
 ## Spacing
 
@@ -148,7 +147,7 @@ Use pragma marks to organize and break up the various features of your class fil
 **For example:**
 
 ```objc
-#pragma mark - UITableViewDataSource methods
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //do stuff
@@ -158,7 +157,7 @@ Use pragma marks to organize and break up the various features of your class fil
     //do more stuff
 }
 
-#pragma mark - UITableViewDelegate methods
+#pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //do even more stuff
@@ -297,31 +296,29 @@ Instance variables should be camel-case with the leading word being lowercase, a
 id varnm;
 ```
 
-####Boolean Properties
-
-Boolean Properties should read as though it has a boolean answer. Furthermore, avoid creating a differently named getter and setter as this adds unnecessary complexity.
+For rules on naming properties we use the standard Apple rules ([Accessor Naming](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingMethods.html#//apple_ref/doc/uid/20001282-1004202-BCIGGFCC)), with one expection. We recommend against changing the default setter/getter method names in order to minimize property declaration/use complexity.
 
 **For example:**
-
 ```objc
-@property (nonatomic) BOOL hasCompleted;
-@property (nonatomic) BOOL isEditable;
+@property (assign, nonatomic) BOOL editable;
 ```
 
 **Not:**
-
 ```objc
-@property (nonatomic) BOOL completed;
-@property (nonatomic, getter=isEditable) BOOL editable;
+@property (assign, nonatomic, getter=isEditable) BOOL editable;
 ```
 
 ###Categories
 
-Methods defined in categories should be prefix with your project class prefix:
+When creating categories on classes not owned by you, category methods should be prefixed with your project class prefix in order to avoid method signature collisions with the original class or a another category on the same class (or even a superclass):
 
 ```objc
+@interface UIColor (INTAdditions)
 + (UIColor *)int_navigationBarColor;
+@end
 ```
+
+[Customizing Existing Classes](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/CustomizingExistingClasses/CustomizingExistingClasses.html#//apple_ref/doc/uid/TP40011210-CH6-SW4)
 
 
 ## Comments
@@ -452,9 +449,9 @@ Private properties should be declared in class extensions (anonymous categories)
 ```objc
 @interface NYTAdvertisement ()
 
-@property (nonatomic, strong) GADBannerView *googleAdView;
-@property (nonatomic, strong) ADBannerView *iAdView;
-@property (nonatomic, strong) UIWebView *adXWebView;
+@property (strong, nonatomic) GADBannerView *googleAdView;
+@property (strong, nonatomic) ADBannerView *iAdView;
+@property (strong, nonatomic) UIWebView *adXWebView;
 
 @end
 ```
