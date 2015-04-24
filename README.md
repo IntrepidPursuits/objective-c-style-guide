@@ -148,7 +148,7 @@ Use pragma marks to organize and break up the various features of your class fil
 **For example:**
 
 ```objc
-#pragma mark - UITableViewDataSource methods
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //do stuff
@@ -158,7 +158,7 @@ Use pragma marks to organize and break up the various features of your class fil
     //do more stuff
 }
 
-#pragma mark - UITableViewDelegate methods
+#pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //do even more stuff
