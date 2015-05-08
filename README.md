@@ -323,9 +323,60 @@ When creating categories on classes not owned by you, category methods should be
 
 ## Comments
 
+Code should be as self-documenting as possible.
+
+**For example:**
+
+```objc
+typedef NS_ENUM(NSInteger, DirectionCode) {
+    DirectionCodeNone = 0,
+    DirectionCodeRight = 2,
+    DirectionCodeLeft = 4,
+};
+
+- (DirectionCode)horizontalChangeWithDeviceInfo:(DeviceInfo)deviceInfo newPosition:(CGPoint)newPosition {
+	int oldPosition = deviceInfo.position.x;
+	if (newPosition.x < oldPosition.x) {
+		return DirectionCodeRight;
+	} else if(newPosition.x > oldPosition.x) {
+		return DirectionCodeLeft;
+	} else {
+		return DirectionCodeNone;
+	}
+}
+```
+
+**Not:**
+
+```c++
+// calculate device's horizontal directional change
+float _x = abs(p.x - deviceInfo.position.x) / scale;
+int directionCode;
+if (0 < _x & p.x != deviceInfo.position.x) {
+    if (0 > p.x - deviceInfo.position.x) {
+        directionCode = 0x04 /*left*/;
+    } else if (0 < p.x - deviceInfo.position.x) {
+        directionCode = 0x02 /*right*/;
+    }
+}
+```
+
 When they are needed, comments should be used to explain **why** a particular piece of code does something. Any comments that are used must be kept up-to-date or deleted.
 
-Code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. This does not apply to those comments used to generate documentation.
+```objc
+if (!accessGroup) {
+#if TARGET_IPHONE_SIMULATOR
+	// Apps that are built for the simulator aren't signed, so there's no keychain access group
+	// for the simulator to check. This means that all apps can see all keychain items when run
+	// on the simulator.
+	//
+	// If a SecItem contains an access group attribute, SecItemAdd and SecItemUpdate on the
+	// simulator will return -25243 (errSecNoAccessForItem).
+#else
+	[genericPasswordQuery setObject:accessGroup forKey:(__bridge id)kSecAttrAccessGroup];
+#endif
+}
+```
 
 ## init
 
