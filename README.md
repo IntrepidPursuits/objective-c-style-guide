@@ -4,7 +4,7 @@ This style guide outlines the coding conventions of the iOS team at Intrepid Pur
 
 #### Making/Requesting Changes
 
-We welcome your feedback. The current maintainers of this style guide are @cprime, @rosslebeau, and @andrewdolce. If you have an issue with any of the existing rules and would like to see something changes, please open an issue or submit a documented PR with the desired change.
+We welcome your feedback. The current maintainers of this style guide are @cprime and @andrewdolce. If you have an issue with any of the existing rules and would like to see something changes, please open an issue or submit a documented PR with the desired change.
 
 
 ## Introduction
@@ -97,11 +97,6 @@ if (user.isHappy) {
 ```
 * There should be exactly one blank line between methods to aid in visual clarity and organization. Whitespace within methods should separate functionality, but often there should probably be new methods.
 * `@synthesize` and `@dynamic` should each be declared on new lines in the implementation.
-
-## Line Character limits
-
-Lines should be limitted to 120 characters long. It is useful to turn on Xcode's character limit indicator as a guide for when to break lines down.
-
 
 ## Conditionals
 
@@ -509,29 +504,25 @@ Private properties should be declared in class extensions (anonymous categories)
 
 ## Image Naming
 
-####Raw image naming conventions
+###Raw image naming conventions
 
 Raw image filenames should:
 * should not contain whitespace characters
 * use the proper scale factors (eg, @2x @3x)
-* have a the general form of location_what_adjectives
+* have a the general form of location_what_adjectives_state
 
 `homescreen_arrow_left_selected.png`
 `homescreen_arrow_left_unselected.png`
 
-####Images.xcassets
+###Recommendation: Images.xcassets
 
-Image assets should be contained in the Images.xcassets file. Image names within the asset catelog should be named consistently to preserve organization and developer sanity. They should be named as one camel case string with a description of their purpose, followed by the un-prefixed name of the class or property they are customizing (if there is one), followed by a further description of color and/or placement, and finally their state.
+Images should be contained in .xcassets file(s) unless there is a good reason not to.
 
-**For example:**
+####UIImages+[Prefix]ImageNames file
 
-* `RefreshBarButtonItem` and `RefreshBarButtonItemSelected`
-* `ArticleNavigationBarWhite` and `ArticleNavigationBarBlackSelected`
+A constant should be declared for every image in the image asset categlog, with the same name.
 
-####[Prefix]ImageNames file
-
-A constant should be declared for every image in the image asset categlog, with the same name. A script can be used to generate this file for a particular project so that the constants file is ensured to be match the asset catelog. (Ross is going to write this).
-
+*TODO: Create a script to generate the .xcassets and UIImages+[Prefix]ImageNames files*
 
 ## Booleans
 
@@ -611,7 +602,7 @@ You should prefer forward declaration for over importing .h files in your .h fil
 
 ## Xcode project
 
-The physical files should be kept in sync with the Xcode project files in order to avoid file sprawl. Any Xcode groups created should be reflected by folders in the filesystem. Code should be grouped not only by type, but also by feature for greater clarity. Files and groups should also be listed in alphabetical order.
+The physical files should be kept in sync with the Xcode project files in order to avoid file sprawl. Any Xcode groups created should be reflected by folders in the filesystem. Code should be grouped not only by type, but also by feature for greater clarity.
 
 ## Project Sepcific Styles
 
