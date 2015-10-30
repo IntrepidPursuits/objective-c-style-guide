@@ -209,6 +209,14 @@ The ordering of the property specifiers should be:
 2. atomicity
 3. writablity
 
+```objc
+
+@property(copy, nonatomic) NSNumber *aNumber;
+@property(weak, nonatomic) id delegate;
+@property(strong, nonatomic, readonly) RKObjectManager *manager;
+
+```
+
 ## Variables
 
 Variables should be named as descriptively as possible. Single letter variable names should be avoided except in `for()` loops.
