@@ -135,7 +135,7 @@ result = a > b ? x : y;
 result = a > b ? x = c > d ? c : d : y;
 ```
 
-## prama mark -
+## pragma mark -
 
 Use pragma marks to organize and break up the various features of your class files. They should also be used to group methods for specific protocols:
 
