@@ -55,16 +55,16 @@ view.backgroundColor = [UIColor orangeColor];
 UIApplication.sharedApplication.delegate;
 ```
 
-Dot-notation should **not** be used to call methods.
+Bracket notation should be used to call methods.
 
 **For example:**
 ```objc
-array.firstObject
+[array firstObject]
 ```
 
 **Not:**
 ```objc
-[array firstObject]
+array.firstObject
 ```
 
 For Cocoa objects, pay attention to the headers headers from the latest available SDK.
